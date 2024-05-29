@@ -1,6 +1,6 @@
 import express from "express";
 import connectDB from "./db.connect.js";
-import course from "./course/course.model.js";
+import course from "./product/course.model.js";
 import mongoose from "mongoose";
 
 const app = express();

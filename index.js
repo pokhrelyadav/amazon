@@ -1,6 +1,6 @@
 import express from "express";
 import connectDB from "./db.connect.js";
-import course from "./product/course.model.js";
+import product from "./product/product.model.js";
 import mongoose from "mongoose";
 
 const app = express();
@@ -12,79 +12,79 @@ app.use(express.json());
 connectDB();
 
 //  create routes here
-app.post("/course/add", async (req, res) => {
-  // extract new course from req.body
-  const newcourse = req.body;
+app.post("/product/add", async (req, res) => {
+  // extract new product from req.body
+  const newProduct = req.body;
 
-  await course.create(newcourse);
+  await product.create(newProduct);
 
-  return res.status(201).send({ message: "course is added successfully." });
+  return res.status(201).send({ message: "product is added successfully." });
 });
 
-// get courses
-app.get("/course/list", async (req, res) => {
-  const courses = await course.find();
+// get products
+app.get("/product/list", async (req, res) => {
+  const products = await product.find();
 
-  return res.status(200).send({ message: "success", courseList: courses });
+  return res.status(200).send({ message: "success", productList: products });
 });
 
 
-// Delete course
-app.delete("/course/delete/:courseId", async (req, res) => {
-  // extract course id from req.params
-  const courseId = req.params.courseId;
+// Delete product
+app.delete("/product/delete/:productId", async (req, res) => {
+  // extract product id from req.params
+  const productId = req.params.productId;
 
-  // check if course id is valid mongo id
-  const isValidMongoId = mongoose.isValidObjectId(courseId);
+  // check if product id is valid mongo id
+  const isValidMongoId = mongoose.isValidObjectId(productId);
 
   // if not valid mongo id, throw error
   if (!isValidMongoId) {
     return res.status(400).send({ message: "Invalid mongo id." });
   }
 
-  // find course using course id
-  const requiredcourse = await course.findOne({ _id: courseId });
+  // find product using product id
+  const requiredproduct = await product.findOne({ _id: productId });
 
-  // if  not course, throw error
-  if (!requiredcourse) {
-    return res.status(404).send({ message: "course does not exist." });
+  // if  not product, throw error
+  if (!requiredproduct) {
+    return res.status(404).send({ message: "product does not exist." });
   }
 
-  // delete course
-  await course.deleteOne({ _id: courseId });
+  // delete product
+  await product.deleteOne({ _id: productId });
 
   // send res
-  return res.status(200).send({ message: "course is deleted successfully." });
+  return res.status(200).send({ message: "product is deleted successfully." });
 });
 
 
 // Edit
-app.put("/course/edit/:courseId", async (req, res) => {
-  // extract courseId from req.params
-  const courseId = req.params.courseId;
+app.put("/product/edit/:productId", async (req, res) => {
+  // extract productId from req.params
+  const productId = req.params.productId;
 
   // check for mongo id validity
-  const isValidMongoId = mongoose.isValidObjectId(courseId);
+  const isValidMongoId = mongoose.isValidObjectId(productId);
 
   // if not valid mongo id, throw error
   if (!isValidMongoId) {
     return res.status(400).send({ message: "Invalid mongo id." });
   }
 
-  // find course
-  const requiredcourse = await course.findOne({ _id: courseId });
+  // find product
+  const requiredproduct = await product.findOne({ _id: productId });
 
-  // if not course, throw error
-  if (!requiredcourse) {
-    return res.status(404).send({ message: "course does not exist." });
+  // if not product, throw error
+  if (!requiredproduct) {
+    return res.status(404).send({ message: "product does not exist." });
   }
 
   // extract new values from req.body
   const newValues = req.body;
 
-  // update course
-  await course.updateOne(
-    { _id: courseId },
+  // update product
+  await product.updateOne(
+    { _id: productId },
     {
       $set: {
         name: newValues.name,
@@ -96,7 +96,7 @@ app.put("/course/edit/:courseId", async (req, res) => {
   );
 
   // send response
-  return res.status(200).send({ message: "course is updated successfully." });
+  return res.status(200).send({ message: "product is updated successfully." });
 });
 
 // network port and server

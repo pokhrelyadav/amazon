@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 // set rule/schema
-const courseSchema = new mongoose.Schema({
+const productSchema = new mongoose.Schema({
   name: String,
   duration: Number,
   price: Number,
@@ -9,6 +9,6 @@ const courseSchema = new mongoose.Schema({
 });
 
 // create table/model/collection
-const course = mongoose.model("course", courseSchema);
+const product = mongoose.model("product", productSchema);
 
-export default course;
+export default product;

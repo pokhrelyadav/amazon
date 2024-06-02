@@ -88,9 +88,9 @@ app.put("/product/edit/:productId", async (req, res) => {
     {
       $set: {
         name: newValues.name,
-        duration: newValues.duration,
         price: newValues.price,
-        tutorName: newValues.tutorName,
+        brand: newValues.brand,
+        description: newValues.description,
       },
     }
   );

@@ -3,9 +3,9 @@ import mongoose from "mongoose";
 // set rule/schema
 const productSchema = new mongoose.Schema({
   name: String,
-  duration: Number,
   price: Number,
-  tutorName: String,
+  brand: String,
+  description: String
 });
 
 // create table/model/collection
